@@ -2,18 +2,16 @@ import React from "react";
 import Task from "./Task";
 
 class List extends React.Component {
-  pendingTasks = () => {
-    return this.props.tasksList.filter(task => !task.done)
-  }
-  onChangeState = (task) => {
-    this.props.onChangeTaskStatus( task )
-  }
+  pendingTasks = () => this.props.tasksList.filter(task => !task.done)
+  
   render() {
-    // const { tasks } = this.state
     return (
       <>
         {this.pendingTasks().map((task, key) => 
-          (<Task task={task} onChangeState={this.onChangeState} key={key} />))}
+          (<Task task={task} onChangeState={ () =>
+            this.props.onChangeTaskStatus( task ) } key={key} 
+          />)
+        )}
       </>
 
     )
