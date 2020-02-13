@@ -8,7 +8,7 @@ import Form from './components/Form';
 // import "bootstrap" from "bootstrap";
 
 class App extends React.Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       tasks: [
@@ -19,14 +19,24 @@ class App extends React.Component {
       ]
     }
   }
-  render() { return (
+  changeTaskStatus = ( task ) => {
+    const taskUpdated = this.state.tasks.map(taskEl => {
+      if (taskEl.id === task.id) taskEl.done = !taskEl.done
+      return taskEl
+    })
+    this.setState({
+      tasks: taskUpdated
+    })
+  }
+  render() {
+    return (
       <div className="container">
         <div className="row mt-3">
           <div className="col mb-3">
             <Form />
           </div>
           <div className="col">
-            <List tasksList={ this.state.tasks } />
+            <List tasksList={this.state.tasks} onChangeTaskStatus={this.changeTaskStatus} />
           </div>
         </div>
       </div>

@@ -6,13 +6,7 @@ class List extends React.Component {
     return this.props.tasksList.filter(task => !task.done)
   }
   onChangeState = (task) => {
-    // const taskUpdated = this.props.tasksList.map(taskEl => {
-    //   if (taskEl.id === task.id) taskEl.done = !taskEl.done
-    //   return taskEl
-    // })
-    // this.setState({
-    //   tasks: taskUpdated
-    // })
+    this.props.onChangeTaskStatus( task )
   }
   render() {
     // const { tasks } = this.state
