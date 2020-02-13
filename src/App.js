@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import List from './components/List';
+import Form from './components/Form';
+
+
+// import "bootstrap" from "bootstrap";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="row mt-5">
+        <div className="col">
+          <Form />
+        </div>
+        <div className="col">
+          <List />
+        </div>
+      </div>
     </div>
   );
 }
