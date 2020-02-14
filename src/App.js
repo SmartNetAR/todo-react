@@ -7,13 +7,18 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
+      tasks: []
+    }
+  }
+  componentDidMount() {
+    this.setState({
       tasks: [
         { id: 1, name: "uno", description: "desc uno", done: true },
         { id: 2, name: "dos", description: "desc dos", done: false },
         { id: 3, name: "tres", description: "desc tres", done: false },
         { id: 4, name: "cuatro", description: "desc cuatro", done: false }
       ]
-    }
+    })
   }
   changeTaskStatus = ( task ) => {
     const taskUpdated = this.state.tasks.map(taskEl => {
@@ -32,6 +37,9 @@ class App extends React.Component {
       tasks: [ ...tasks, newTask ]
     })
   }
+  pendingTasks = () => {
+    return this.state.tasks.filter( ( task ) => !task.done )
+  }
   render() {
     return (
       <div className="container">
@@ -40,7 +48,9 @@ class App extends React.Component {
             <Form onSubmitTask={ this.addTask } />
           </div>
           <div className="col">
-            <List tasksList={this.state.tasks} onChangeTaskStatus={this.changeTaskStatus} />
+            { this.pendingTasks().length > 0 ? 
+              <List tasksList={this.pendingTasks()} onChangeTaskStatus={this.changeTaskStatus} />
+            : <h3> Muy bien!! No tienes tareas pendientes </h3> }
           </div>
         </div>
       </div>
