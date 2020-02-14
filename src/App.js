@@ -32,7 +32,7 @@ class App extends React.Component {
   }
   addTask = ( newTask ) => {
     const { tasks } = this.state
-    newTask.id = tasks[ tasks.length -1 ].id
+    newTask.id = tasks[ tasks.length -1 ].id + 1
     this.setState({
       tasks: [ ...tasks, newTask ]
     })

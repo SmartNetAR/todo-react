@@ -30,7 +30,7 @@ class Form extends React.Component {
       <div className="card">
         <div className="card-header">
           Nueva tarea
-                </div>
+        </div>
         <div className="card-body">
           <form onSubmit={this.handleSubmit} >
             <div className="form-group">

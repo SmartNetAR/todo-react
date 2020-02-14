@@ -10,12 +10,12 @@ class Task extends React.Component {
       <>
         <div className="card mb-3">
           <div className="card-header">
-            Tarea
-                    </div>
+            {name}
+          </div>
           <div className="card-body">
-            <h5 className="card-title">{name}</h5>
+            {/* <h5 className="card-title">{name}</h5> */}
             <p className="card-text">{description}</p>
-            <button className="btn btn-primary" onClick={this.changeStatus} >Lista</button>
+            <button className="btn btn-primary" onClick={this.changeStatus} >Completada</button>
           </div>
         </div>
       </>
