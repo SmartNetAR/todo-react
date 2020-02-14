@@ -1,10 +1,29 @@
 import React from "react";
 
 class Form extends React.Component {
+  constructor( props ) {
+    super( props )
+    this.state = {
+      name: "",
+      description: ""
+    }
+  }
+  handleChange = e => {
+    const value = e.target.value
+    const name = e.target.name
 
-  handleSubmit = (e) => {
+    this.setState({
+      [name]: value
+    })
+  }
+  handleSubmit = e => {
     e.preventDefault()
-
+    const { name, description } = this.state
+    const task = {
+      name,
+      description
+    }
+    this.props.onSubmitTask( task )
   }
   render() {
     return (
@@ -15,12 +34,12 @@ class Form extends React.Component {
         <div className="card-body">
           <form onSubmit={this.handleSubmit} >
             <div className="form-group">
-              <label htmlFor="exampleInputEmail1">Título</label>
-              <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+              <label htmlFor="exampleInputTitle">Título</label>
+              <input type="text" className="form-control" name="name" value={this.name} onChange={this.handleChange}></input>
             </div>
             <div className="form-group">
               <label htmlFor="description">Descripción</label>
-              <input type="text" className="form-control" name="description" id="description"></input>
+              <input type="text" className="form-control" name="description" value={this.description} onChange={this.handleChange}></input>
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>

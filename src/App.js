@@ -1,11 +1,7 @@
 import React from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import List from './components/List';
 import Form from './components/Form';
-
-
-// import "bootstrap" from "bootstrap";
 
 class App extends React.Component {
   constructor() {
@@ -21,11 +17,19 @@ class App extends React.Component {
   }
   changeTaskStatus = ( task ) => {
     const taskUpdated = this.state.tasks.map(taskEl => {
-      if (taskEl.id === task.id) taskEl.done = !taskEl.done
+      if (taskEl.id === task.id)
+        taskEl.done = !taskEl.done
       return taskEl
     })
     this.setState({
       tasks: taskUpdated
+    })
+  }
+  addTask = ( newTask ) => {
+    const { tasks } = this.state
+    newTask.id = tasks[ tasks.length -1 ].id
+    this.setState({
+      tasks: [ ...tasks, newTask ]
     })
   }
   render() {
@@ -33,7 +37,7 @@ class App extends React.Component {
       <div className="container">
         <div className="row mt-3">
           <div className="col mb-3">
-            <Form />
+            <Form onSubmitTask={ this.addTask } />
           </div>
           <div className="col">
             <List tasksList={this.state.tasks} onChangeTaskStatus={this.changeTaskStatus} />
