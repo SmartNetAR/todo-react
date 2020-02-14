@@ -8,8 +8,11 @@ class List extends React.Component {
     return (
       <>
         {this.pendingTasks().map((task, key) => 
-          (<Task task={task} onChangeState={ () =>
-            this.props.onChangeTaskStatus( task ) } key={key} 
+          (<Task
+            task={task}
+            onChangeState={ () => this.props.onChangeTaskStatus( task ) }
+            onEditTask={ () => this.props.onEditTask( task ) }
+            key={key} 
           />)
         )}
       </>

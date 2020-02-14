@@ -19,11 +19,13 @@ class Form extends React.Component {
   handleSubmit = e => {
     e.preventDefault()
     const { name, description } = this.state
-    const task = {
-      name,
-      description
+    if ( name && description ) {
+      const task = {
+        name,
+        description
+      }
+      this.props.onSubmitTask( task )
     }
-    this.props.onSubmitTask( task )
   }
   render() {
     return (
@@ -35,11 +37,11 @@ class Form extends React.Component {
           <form onSubmit={this.handleSubmit} >
             <div className="form-group">
               <label htmlFor="exampleInputTitle">Título</label>
-              <input type="text" className="form-control" name="name" value={this.name} onChange={this.handleChange}></input>
+              <input type="text" className="form-control" name="name" value={ this.props.taskName } onChange={this.handleChange}></input>
             </div>
             <div className="form-group">
               <label htmlFor="description">Descripción</label>
-              <input type="text" className="form-control" name="description" value={this.description} onChange={this.handleChange}></input>
+              <input type="text" className="form-control" name="description" value={ this.state.description } onChange={this.handleChange}></input>
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>

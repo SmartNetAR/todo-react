@@ -7,7 +7,8 @@ class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      tasks: []
+      tasks: [],
+      editTask: { id: 0, name: "", description: "" }
     }
   }
   componentDidMount() {
@@ -37,6 +38,12 @@ class App extends React.Component {
       tasks: [ ...tasks, newTask ]
     })
   }
+  editTask = ( task ) => {
+    this.setState({
+      editTask: task
+    })
+    console.log( task )
+  }
   pendingTasks = () => {
     return this.state.tasks.filter( ( task ) => !task.done )
   }
@@ -45,11 +52,13 @@ class App extends React.Component {
       <div className="container">
         <div className="row mt-3">
           <div className="col mb-3">
-            <Form onSubmitTask={ this.addTask } />
+            <Form onSubmitTask={ this.addTask } taskName={ this.state.editTask.name } />
           </div>
           <div className="col">
             { this.pendingTasks().length > 0 ? 
-              <List tasksList={this.pendingTasks()} onChangeTaskStatus={this.changeTaskStatus} />
+              <List tasksList={ this.pendingTasks() }
+                onChangeTaskStatus={ this.changeTaskStatus }
+                onEditTask={ this.editTask } />
             : <h3> Muy bien!! No tienes tareas pendientes </h3> }
           </div>
         </div>

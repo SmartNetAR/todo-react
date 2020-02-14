@@ -1,9 +1,6 @@
 import React from "react"
 
 class Task extends React.Component {
-  changeStatus = () => {
-    this.props.onChangeState(this.props.task)
-  }
   render() {
     const { name, description } = this.props.task
     return (
@@ -15,7 +12,14 @@ class Task extends React.Component {
           <div className="card-body">
             {/* <h5 className="card-title">{name}</h5> */}
             <p className="card-text">{description}</p>
-            <button className="btn btn-primary" onClick={this.changeStatus} >Completada</button>
+            <div className="row mx-auto">
+              <div className="col-sm">
+                <button className="btn btn-outline-success" onClick={() => this.props.onChangeState()} >Completada</button>
+              </div>
+              <div className="col-sm">
+                <button className="btn btn-outline-primary" onClick={() => this.props.onEditTask()} >Editar</button>
+              </div>
+            </div>
           </div>
         </div>
       </>
