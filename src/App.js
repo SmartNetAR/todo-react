@@ -8,7 +8,51 @@ class App extends React.Component {
     super()
     this.state = {
       tasks: [],
-      editTask: { id: 0, name: "", description: "" }
+      form: {
+        name: "",
+        description: ""
+      },
+      editedTask: {}
+    }
+  }
+  handleChange = e => {
+    const value = e.target.value
+    const name = e.target.name
+
+    this.setState({
+      form: {
+        ...this.state.form,
+        [name]: value
+      }
+    })
+  }
+  handleSubmit = e => {
+    e.preventDefault()
+    const { tasks, form } = this.state
+    const { name, description } = form
+    if ( form.id ) {
+      const newTasks = tasks.map( task => task.id === form.id ? form : task )
+      this.setState({
+        tasks: newTasks,
+        form: {
+          name: "",
+          description: ""
+        }
+      })
+    }
+    else if ( name && description ) {
+      const task = {
+        name,
+        description
+      }      
+      task.id = tasks[ tasks.length -1 ].id + 1
+      this.setState({
+        tasks: [ ...tasks, task ],
+        form: {
+          name: "",
+          description: ""
+        }
+      })
     }
   }
   componentDidMount() {
@@ -31,18 +75,11 @@ class App extends React.Component {
       tasks: taskUpdated
     })
   }
-  addTask = ( newTask ) => {
-    const { tasks } = this.state
-    newTask.id = tasks[ tasks.length -1 ].id + 1
-    this.setState({
-      tasks: [ ...tasks, newTask ]
-    })
-  }
   editTask = ( task ) => {
-    this.setState({
-      editTask: task
+    this.setState( {
+      editedTask: task,
+      form: task
     })
-    console.log( task )
   }
   pendingTasks = () => {
     return this.state.tasks.filter( ( task ) => !task.done )
@@ -52,7 +89,11 @@ class App extends React.Component {
       <div className="container">
         <div className="row mt-3">
           <div className="col mb-3">
-            <Form onSubmitTask={ this.addTask } taskName={ this.state.editTask.name } />
+            <Form
+              onSubmit={ this.handleSubmit }
+              onChange={ this.handleChange }
+              form={ this.state.form }
+            />
           </div>
           <div className="col">
             { this.pendingTasks().length > 0 ? 
